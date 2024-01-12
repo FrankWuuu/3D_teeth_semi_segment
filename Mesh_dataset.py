@@ -32,11 +32,6 @@ class Mesh_Dataset(Dataset):
         mesh_file = f"{file_id}.obj"
         label_file = f"{file_id}.json"
 
-
-        # # read vtk
-        # mesh = load(i_mesh)
-        # labels = mesh.celldata['Label'].astype('int32').reshape(-1, 1)
-
         # Load the mesh using trimesh
         mesh = trimesh.load(mesh_file, process=False)
         points = mesh.vertices
