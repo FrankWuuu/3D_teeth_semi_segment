@@ -28,7 +28,7 @@ if __name__ == '__main__':
     checkpoint_name = 'latest_checkpoint_cont.tar'
     
     num_classes = 50
-    num_channels = 15 #number of features
+    num_channels = 9 #number of features
     num_epochs = 200
     num_workers = 2
     train_batch_size = 4
