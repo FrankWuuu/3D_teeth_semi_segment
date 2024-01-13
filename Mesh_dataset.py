@@ -40,7 +40,8 @@ class Mesh_Dataset(Dataset):
         # Load labels from the corresponding JSON file
         with open(label_file, 'r') as f:
             labels_data = json.load(f)
-        labels = np.array(labels_data['labels']).astype('int32').reshape(-1, 1)
+        labels_ = np.array(labels_data['labels']).astype('int32').reshape(-1, 1)
+        labels = labels_[ids].reshape(-1, 3)
         
         # # new way
         # # move mesh to origin
