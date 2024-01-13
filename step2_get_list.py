@@ -23,7 +23,7 @@ if __name__ == '__main__':
     arr_tmp = []
     for sample in sample_list:
         sample_tmp = sample.split('/')
-        sample_ = sample + "/" + sample_tmp[-1] + "_" + sample_tmp[-2]+".obj"
+        sample_ = sample + "/" + sample_tmp[-1] + "_" + sample_tmp[-2]
         arr_tmp.append(sample_)
 
     train_list, val_list = train_test_split(arr_tmp, train_size=0.8, shuffle=True)

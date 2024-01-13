@@ -92,11 +92,11 @@ class Mesh_Dataset(Dataset):
         Y_train[:] = Y[selected_idx, :]
 
         if  torch.cuda.is_available():
-            TX = torch.as_tensor(X_train[:, 9:12], device='cuda')
+            TX = torch.as_tensor(X_train[:, :3], device='cuda')
             TD = torch.cdist(TX, TX)
             D = TD.cpu().numpy()
         else:
-            D = distance_matrix(X_train[:, 9:12], X_train[:, 9:12])
+            D = distance_matrix(X_train[:, :3], X_train[:, :3])
 
         S1[D<0.1] = 1.0
         S1 = S1 / np.dot(np.sum(S1, axis=1, keepdims=True), np.ones((1, self.patch_size)))

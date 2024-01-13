@@ -20,11 +20,11 @@ if __name__ == '__main__':
     val_list = './val_list_1.csv' # use 1-fold as example
 
     model_path = './models/'
-    model_name = 'Mesh_Segementation_MeshSegNet_15_classes_60samples' # need to define
+    model_name = 'Mesh_Segementation_MeshSegNet_50_classes_1500samples' # need to define
     checkpoint_name = 'latest_checkpoint.tar'
 
-    num_classes = 15
-    num_channels = 15 #number of features
+    num_classes = 50
+    num_channels = 9 #number of features
     num_epochs = 200
     num_workers = 0
     train_batch_size = 10
