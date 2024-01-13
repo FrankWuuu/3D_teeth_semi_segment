@@ -10,6 +10,7 @@ from meshsegnet import *
 from losses_and_metrics_for_mesh import *
 import utils
 import pandas as pd
+import shutil
 
 if __name__ == '__main__':
     
@@ -23,15 +24,15 @@ if __name__ == '__main__':
     previous_check_point_name = 'latest_checkpoint.tar'
     
     model_path = './models/'
-    model_name = 'Mesh_Segementation_MeshSegNet_15_classes_72samples' #remember to include the project title (e.g., ALV)
+    model_name = 'Mesh_Segementation_MeshSegNet_50_classes_1500samples' #remember to include the project title (e.g., ALV)
     checkpoint_name = 'latest_checkpoint_cont.tar'
     
-    num_classes = 15
+    num_classes = 50
     num_channels = 15 #number of features
-    num_epochs = 300
+    num_epochs = 200
     num_workers = 2
-    train_batch_size = 12
-    val_batch_size = 12
+    train_batch_size = 4
+    val_batch_size = 4
     num_batches_to_print = 20
     
     if use_visdom:
@@ -101,7 +102,7 @@ if __name__ == '__main__':
     torch.backends.cudnn.enabled = True
         
     print('Training model...')
-    class_weights = torch.ones(15).to(device, dtype=torch.float)
+    class_weights = torch.ones(num_classes).to(device, dtype=torch.float)
     for epoch in range(epoch_init, num_epochs):
 
         # training
@@ -247,7 +248,11 @@ if __name__ == '__main__':
                     'val_msen': val_msen,
                     'val_mppv': val_mppv},
                     os.path.join(model_path, checkpoint_name))
-        
+        # save the checkpoint to drive(for colab training)
+        srcfile = os.path.join(model_path, checkpoint_name)
+        dstfile = os.path.join("/content/drive/MyDrive/3d/", checkpoint_name)
+        shutil.copyfile(srcfile, dstfile)
+
         # save the best model
         if best_val_dsc < val_mdsc[-1]:
             best_val_dsc = val_mdsc[-1]
@@ -263,6 +268,10 @@ if __name__ == '__main__':
                         'val_msen': val_msen,
                         'val_mppv': val_mppv},
                         os.path.join(model_path, '{}_best.tar'.format(model_name)))
+            # save the checkpoint to drive(for colab training)
+            srcfile = os.path.join(model_path, '{}_best.tar'.format(model_name))
+            dstfile = os.path.join("/content/drive/MyDrive/3d/", '{}_best.tar'.format(model_name))
+            shutil.copyfile(srcfile, dstfile)
             
         # save all losses and metrics data
         pd_dict = {'loss': losses, 'DSC': mdsc, 'SEN': msen, 'PPV': mppv, 'val_loss': val_losses, 'val_DSC': val_mdsc, 'val_SEN': val_msen, 'val_PPV': val_mppv}
