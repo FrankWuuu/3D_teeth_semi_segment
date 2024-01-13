@@ -79,4 +79,5 @@ if __name__ == '__main__':
         print('with flipped samples:', with_flip)
         print('# of train:', len(train_name_list))
         print('# of validation:', len(val_name_list))
+        print('# of test:', len(test_df))
         print('--------------------------------------------')
