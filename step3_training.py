@@ -14,7 +14,7 @@ import pandas as pd
 if __name__ == '__main__':
 
     torch.cuda.set_device(utils.get_avail_gpu()) # assign which gpu will be used (only linux works)
-    use_visdom = True # if you don't use visdom, please set to False
+    use_visdom = False # if you don't use visdom, please set to False
 
     train_list = './train_list_1.csv' # use 1-fold as example
     val_list = './val_list_1.csv' # use 1-fold as example
@@ -27,8 +27,8 @@ if __name__ == '__main__':
     num_channels = 9 #number of features
     num_epochs = 200
     num_workers = 0
-    train_batch_size = 10
-    val_batch_size = 10
+    train_batch_size = 4
+    val_batch_size = 4
     num_batches_to_print = 20
 
     if use_visdom:
@@ -73,7 +73,7 @@ if __name__ == '__main__':
     torch.backends.cudnn.enabled = True
 
     print('Training model...')
-    class_weights = torch.ones(15).to(device, dtype=torch.float)
+    class_weights = torch.ones(num_classes).to(device, dtype=torch.float)
     for epoch in range(num_epochs):
 
         # training
