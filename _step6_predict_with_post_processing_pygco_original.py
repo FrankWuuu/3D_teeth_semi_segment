@@ -25,7 +25,7 @@ if __name__ == '__main__':
     upsampling_method = 'KNN'
 
     model_path = './models'
-    model_name = 'MeshSegNet_Max_50_classes_1500samples_lr1e-2_best.zip'
+    model_name = 'MeshSegNet_Max_15_classes_72samples_lr1e-2_best.zip'
 
     mesh_path = './'  # need to modify
     sample_filenames = ['Example.stl'] # need to modify
@@ -33,8 +33,8 @@ if __name__ == '__main__':
     if not os.path.exists(output_path):
         os.mkdir(output_path)
 
-    num_classes = 50
-    num_channels = 9
+    num_classes = 15
+    num_channels = 15
 
     # set model
     device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
