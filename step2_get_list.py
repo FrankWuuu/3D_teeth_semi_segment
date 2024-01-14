@@ -9,7 +9,7 @@ import glob
 if __name__ == '__main__':
 
     # /content/3D_teeth_semi_segment/data/data_part_1/upper/EKITH3BB
-    data_path = '/content/3D_teeth_semi_segment/data/*/*/*'
+    data_path = 'data/*/*/*'
     output_path = './'
     train_size = 0.8
 
