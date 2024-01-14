@@ -13,6 +13,8 @@ import pandas as pd
 import shutil
 
 if __name__ == '__main__':
+
+    use_colab_drive = False # set to True if necessary
     
     torch.cuda.set_device(utils.get_avail_gpu()) # assign which gpu will be used (only linux works)
     use_visdom = False
@@ -20,8 +22,10 @@ if __name__ == '__main__':
     train_list = './train_list_1.csv'
     val_list = './val_list_1.csv'
     
-    # previous_check_point_path = './models'
-    previous_check_point_path = "/content/drive/MyDrive/3d/"
+    if use_colab_drive:
+        previous_check_point_path = './models'
+    else:
+        previous_check_point_path = "/content/drive/MyDrive/3d/"
     previous_check_point_name = 'latest_checkpoint.tar'
     
     model_path = './models/'
@@ -31,7 +35,7 @@ if __name__ == '__main__':
     num_classes = 50
     num_channels = 9 #number of features
     num_epochs = 200
-    num_workers = 2
+    num_workers = 0
     train_batch_size = 4
     val_batch_size = 4
     num_batches_to_print = 20
@@ -250,9 +254,10 @@ if __name__ == '__main__':
                     'val_mppv': val_mppv},
                     os.path.join(model_path, checkpoint_name))
         # save the checkpoint to drive(for colab training)
-        srcfile = os.path.join(model_path, checkpoint_name)
-        dstfile = os.path.join("/content/drive/MyDrive/3d/", checkpoint_name)
-        shutil.copyfile(srcfile, dstfile)
+        if use_colab_drive:
+            srcfile = os.path.join(model_path, checkpoint_name)
+            dstfile = os.path.join("/content/drive/MyDrive/3d/", checkpoint_name)
+            shutil.copyfile(srcfile, dstfile)
 
         # save the best model
         if best_val_dsc < val_mdsc[-1]:
@@ -270,15 +275,17 @@ if __name__ == '__main__':
                         'val_mppv': val_mppv},
                         os.path.join(model_path, '{}_best.tar'.format(model_name)))
             # save the checkpoint to drive(for colab training)
-            srcfile = os.path.join(model_path, '{}_best.tar'.format(model_name))
-            dstfile = os.path.join("/content/drive/MyDrive/3d/", '{}_best.tar'.format(model_name))
-            shutil.copyfile(srcfile, dstfile)
+            if use_colab_drive:
+                srcfile = os.path.join(model_path, '{}_best.tar'.format(model_name))
+                dstfile = os.path.join("/content/drive/MyDrive/3d/", '{}_best.tar'.format(model_name))
+                shutil.copyfile(srcfile, dstfile)
             
         # save all losses and metrics data
         pd_dict = {'loss': losses, 'DSC': mdsc, 'SEN': msen, 'PPV': mppv, 'val_loss': val_losses, 'val_DSC': val_mdsc, 'val_SEN': val_msen, 'val_PPV': val_mppv}
         stat = pd.DataFrame(pd_dict)
         stat.to_csv('losses_metrics_vs_epoch.csv')
-        shutil.copyfile("losses_metrics_vs_epoch.csv", "/content/drive/MyDrive/3d/losses_metrics_vs_epoch.csv")
+        if use_colab_drive:
+            shutil.copyfile("losses_metrics_vs_epoch.csv", "/content/drive/MyDrive/3d/losses_metrics_vs_epoch.csv")
             
 #        # decay learning rate
 #        scheduler.step()
