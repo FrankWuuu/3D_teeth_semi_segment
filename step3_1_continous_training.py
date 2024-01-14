@@ -20,7 +20,8 @@ if __name__ == '__main__':
     train_list = './train_list_1.csv'
     val_list = './val_list_1.csv'
     
-    previous_check_point_path = './models'
+    # previous_check_point_path = './models'
+    previous_check_point_path = "/content/drive/MyDrive/3d/"
     previous_check_point_name = 'latest_checkpoint.tar'
     
     model_path = './models/'
