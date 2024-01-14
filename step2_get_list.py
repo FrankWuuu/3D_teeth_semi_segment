@@ -8,7 +8,7 @@ import glob
 
 if __name__ == '__main__':
 
-    # /content/3D_teeth_semi_segment/data/data_part_1/upper/EKITH3BB
+    # data/data_part_1/upper/EKITH3BB
     data_path = 'data/*/*/*'
     output_path = './'
     train_size = 0.8
@@ -16,8 +16,8 @@ if __name__ == '__main__':
     file_lists = glob.glob(data_path)
     # for file in file_lists[:300]:
     #     print(file)
-    # /content/3D_teeth_semi_segment/data/data_part_1/upper/EKITH3BB
-    # /content/3D_teeth_semi_segment/data/data_part_1/lower/O52P1SZT/O52P1SZT_lower.json
+    # data/data_part_1/upper/EKITH3BB
+    # data/data_part_1/lower/O52P1SZT/O52P1SZT_lower.json
 
     sample_list = np.asarray(file_lists)
     arr_tmp = []
