@@ -10,6 +10,7 @@ from meshsegnet import *
 from losses_and_metrics_for_mesh import *
 import utils
 import pandas as pd
+import shutil
 
 if __name__ == '__main__':
 
@@ -219,6 +220,10 @@ if __name__ == '__main__':
                     'val_msen': val_msen,
                     'val_mppv': val_mppv},
                     model_path+checkpoint_name)
+        # save the checkpoint to drive(for colab training)
+        srcfile = os.path.join(model_path, checkpoint_name)
+        dstfile = os.path.join("/content/drive/MyDrive/3d/", checkpoint_name)
+        shutil.copyfile(srcfile, dstfile)
 
         # save the best model
         if best_val_dsc < val_mdsc[-1]:
@@ -235,8 +240,13 @@ if __name__ == '__main__':
                         'val_msen': val_msen,
                         'val_mppv': val_mppv},
                         model_path+'{}_best.tar'.format(model_name))
+            # save the checkpoint to drive(for colab training)
+            srcfile = os.path.join(model_path, '{}_best.tar'.format(model_name))
+            dstfile = os.path.join("/content/drive/MyDrive/3d/", '{}_best.tar'.format(model_name))
+            shutil.copyfile(srcfile, dstfile)
 
         # save all losses and metrics data
         pd_dict = {'loss': losses, 'DSC': mdsc, 'SEN': msen, 'PPV': mppv, 'val_loss': val_losses, 'val_DSC': val_mdsc, 'val_SEN': val_msen, 'val_PPV': val_mppv}
         stat = pd.DataFrame(pd_dict)
         stat.to_csv('losses_metrics_vs_epoch.csv')
+        shutil.copyfile("losses_metrics_vs_epoch.csv", "/content/drive/MyDrive/3d/losses_metrics_vs_epoch.csv")

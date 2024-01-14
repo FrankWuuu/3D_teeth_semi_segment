@@ -277,6 +277,7 @@ if __name__ == '__main__':
         pd_dict = {'loss': losses, 'DSC': mdsc, 'SEN': msen, 'PPV': mppv, 'val_loss': val_losses, 'val_DSC': val_mdsc, 'val_SEN': val_msen, 'val_PPV': val_mppv}
         stat = pd.DataFrame(pd_dict)
         stat.to_csv('losses_metrics_vs_epoch.csv')
+        shutil.copyfile("losses_metrics_vs_epoch.csv", "/content/drive/MyDrive/3d/losses_metrics_vs_epoch.csv")
             
 #        # decay learning rate
 #        scheduler.step()
