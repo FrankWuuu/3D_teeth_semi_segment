@@ -14,7 +14,7 @@ if __name__ == '__main__':
     torch.cuda.set_device(utils.get_avail_gpu()) # assign which gpu will be used (only linux works)
 
     model_path = './models'
-    model_name = 'MeshSegNet_Max_15_classes_72samples_lr1e-2_best.tar'
+    model_name = 'MeshSegNet_Max_50_classes_1500samples_lr1e-2_best.tar'
 
     mesh_path = '' # need to define
     test_list = pd.read_csv('test_list_1.csv')['Test ID'].values # need to change the test_list by users if you have your own test samples
@@ -23,8 +23,8 @@ if __name__ == '__main__':
     if not os.path.exists(test_path):
         os.mkdir(test_path)
 
-    num_classes = 15
-    num_channels = 15
+    num_classes = 50
+    num_channels = 9
 
     # set model
     device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
